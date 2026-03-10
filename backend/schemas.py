@@ -3,9 +3,7 @@ from datetime import datetime
 from pydantic import BaseModel, Field, field_validator
 
 
-# ---------------------------------------------------------------------------
 # Master password schemas
-# ---------------------------------------------------------------------------
 
 class MasterPasswordSetup(BaseModel):
     """Sent once to create the vault master password."""
@@ -23,9 +21,7 @@ class MasterPasswordStatus(BaseModel):
     is_unlocked: bool
 
 
-# ---------------------------------------------------------------------------
 # Credential schemas
-# ---------------------------------------------------------------------------
 
 class CredentialCreate(BaseModel):
     """Data the client sends when saving a new credential."""
@@ -51,7 +47,7 @@ class CredentialRead(BaseModel):
     site_name: str
     site_url: str | None
     username: str
-    password: str  # decrypted on-the-fly before returning
+    password: str  
     notes: str | None
     created_at: datetime
     updated_at: datetime
@@ -70,9 +66,7 @@ class CredentialSummary(BaseModel):
     model_config = {"from_attributes": True}
 
 
-# ---------------------------------------------------------------------------
-# Password generator schemas (kept from earlier iteration)
-# ---------------------------------------------------------------------------
+# Password generator schemas (kept from earlier)
 
 class PasswordCreate(BaseModel):
     """Data the client sends when saving a generated password."""

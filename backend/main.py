@@ -130,9 +130,7 @@ def vault_lock(db: Session = Depends(get_db)) -> dict:
     return {"is_setup": master is not None, "is_unlocked": False}
 
 
-# ---------------------------------------------------------------------------
-# Credential CRUD routes
-# ---------------------------------------------------------------------------
+#Credential Routes
 
 @app.post(
     "/credentials",
@@ -242,9 +240,7 @@ def _credential_to_read(entry: Credential, key: bytes) -> dict:
     }
 
 
-# ---------------------------------------------------------------------------
-# Password generator routes (kept from earlier iteration)
-# ---------------------------------------------------------------------------
+#Password Routes
 
 @app.post(
     "/passwords",

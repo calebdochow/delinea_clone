@@ -1,11 +1,3 @@
-"""
-Encryption utilities for the credential vault.
-
-- Master password is hashed with bcrypt (one-way, for verification).
-- Vault passwords are encrypted with Fernet (AES-128-CBC), using a key
-  derived from the master password via PBKDF2-HMAC-SHA256.
-"""
-
 import base64
 import os
 
@@ -15,9 +7,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 
 
-# ---------------------------------------------------------------------------
-# Master-password hashing (bcrypt)
-# ---------------------------------------------------------------------------
+# master password hashing using bcrypt
 
 def hash_master_password(password: str) -> str:
     """Return a bcrypt hash of the master password."""
@@ -29,9 +19,7 @@ def verify_master_password(password: str, hashed: str) -> bool:
     return bcrypt.checkpw(password.encode("utf-8"), hashed.encode("utf-8"))
 
 
-# ---------------------------------------------------------------------------
-# Encryption-key derivation (PBKDF2 → Fernet key)
-# ---------------------------------------------------------------------------
+#SHA256 and fernet
 
 _KDF_ITERATIONS = 480_000  # OWASP-recommended minimum for PBKDF2-SHA256
 
@@ -51,10 +39,6 @@ def generate_salt() -> bytes:
     """Generate a cryptographically secure random 16-byte salt."""
     return os.urandom(16)
 
-
-# ---------------------------------------------------------------------------
-# Credential encryption / decryption (Fernet)
-# ---------------------------------------------------------------------------
 
 def encrypt_password(plaintext: str, key: bytes) -> str:
     """Encrypt a credential password and return the ciphertext as a string."""

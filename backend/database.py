@@ -5,7 +5,7 @@ DATABASE_URL = "sqlite:///./passwords.db"
 
 engine = create_engine(
     DATABASE_URL,
-    # Required for SQLite when using multiple threads (e.g. FastAPI's thread pool)
+    # Required for SQLite when using multiple threads
     connect_args={"check_same_thread": False},
 )
 
